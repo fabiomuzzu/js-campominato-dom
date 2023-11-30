@@ -1,3 +1,32 @@
+// 8 - Creo la funzione che mi genera numeri casuali
+function generateUniqueRandomNumber(array_bombs, total_cells){
+
+    let check_number = false;
+    let randomInt;
+
+    while(!check_number){
+        randomInt = Math.floor(Math.random() * total_cells + 1);
+        
+        if(!array_bombs.includes(randomInt)){
+            check_number = true;
+        }
+    }
+    
+    return randomInt;
+}
+
+// 9 - Creo l'array di numeri casuali
+function generateBombsList(number_of_bombs, total_cells){
+    let bombs = [];
+
+    for (let i=0; i<number_of_bombs; i++){
+        let bomb_number = generateUniqueRandomNumber(bombs, total_cells);
+        bombs.push(bomb_number);
+    }
+    console.log(bombs);
+    return bombs;
+}
+
 // 1 - Dichiaro const per il pulsante play
 const play_btn = document.getElementById('play_btn');
 
@@ -23,6 +52,11 @@ function createCell(num, cellsPerRow){
 }
 
 function createNewGame(){
+
+    const NUMBER_OF_BOMBS = 16;
+    let points = 0;
+
+
     // 5 - Recupero l'elemento che contiene la griglia
     let grid = document.getElementById('grid');
     
@@ -38,6 +72,8 @@ function createNewGame(){
 
     let cells_number;
     let cells_per_row;
+
+    let gameOver = false;
 
     switch(level){
         case 1:
@@ -56,6 +92,8 @@ function createNewGame(){
 
     cells_per_row = Math.sqrt(cells_number);
 
+    const bombs = generateBombsList(NUMBER_OF_BOMBS, cells_number);
+
     // 6 - Creo ciclo for per creare celle uguali
     for(let i=1; i<=cells_number; i++){
         
@@ -64,10 +102,21 @@ function createNewGame(){
     
         // Assegnazione nuova classe al click della casella
         square.addEventListener('click', function(){
-            this.classList.toggle('clicked');
-            console.log(`Il numero della casella è: ${i+1}`);
-        })
+            if(!gameOver){
+                if (!bombs.includes(i)) {
+                    this.classList.add('clicked');
+                    points++;
     
+                    document.getElementById('score').innerText = `Il tuo punteggio è pari a: ${points} punti`;
+                } 
+                else {
+                    this.classList.add('clicked-bomb');
+                    gameOver = true;
+                }
+                console.log(`Il numero della casella è: ${i}`);
+            }
+        })
+        
         // Appendo la cella alla griglia
         grid.appendChild(square);
     }

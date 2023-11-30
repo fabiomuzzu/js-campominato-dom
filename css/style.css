@@ -22,6 +22,10 @@
     background-color: #00a6ff;
 }
 
+.clicked-bomb{
+    background-color: red;
+}
+
 .my_margin{
     margin: 50px 0;
     background-color: aquamarine;
