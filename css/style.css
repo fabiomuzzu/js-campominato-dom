@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bg_aquamarine{
+    background-color: aquamarine;
+}
+
+#grid{
+    width: 1000px;
+    flex-wrap: wrap;
+}
+
+.square{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clicked{
+    background-color: #00a6ff;
+}
+
+.my_margin{
+    margin: 50px 0;
+}
