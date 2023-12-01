@@ -96,20 +96,33 @@ function createNewGame(){
 
     // 6 - Creo ciclo for per creare celle uguali
     for(let i=1; i<=cells_number; i++){
-        
+
         // Creo la cella
         let square = createCell(i, cells_per_row);
     
         // Assegnazione nuova classe al click della casella
         square.addEventListener('click', function(){
             if(!gameOver){
+
                 if (!bombs.includes(i)) {
-                    this.classList.add('clicked');
-                    points++;
-    
-                    document.getElementById('score').innerText = `Il tuo punteggio è pari a: ${points} punti`;
+                    // if che permette di non aggiungere punteggio se la casella è già clickata
+                    if(!this.classList.contains('clicked')){
+                        this.classList.add('clicked');
+                        points++;
+                        document.getElementById('score').innerText = `Il tuo punteggio è pari a: ${points} punti`;
+                    }
                 } 
                 else {
+                    // Ciclo for che consente la visualizzazione di tutte le caselle rosse appena si clicka una bomba
+                    // Se l'elemento ciclato è presente nell'array delle bombe, aggiungo la classe clicked bomb
+                    const squares = document.querySelectorAll('.square');
+                    for(let i=0; i<squares.length; i++){
+                        // Verifico se l'elemento ciclato è presente nell'array delle bombe
+                        if(bombs.includes(parseInt(squares[i].innerText))){
+                            squares[i].classList.add('clicked-bomb');
+                        }
+                    }
+
                     this.classList.add('clicked-bomb');
                     gameOver = true;
                 }
