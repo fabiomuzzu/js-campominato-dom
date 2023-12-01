@@ -63,9 +63,7 @@ function createNewGame(){
     // Stringa che permette di non replicare la tabella in loop
     document.getElementById("grid").innerHTML = "";
     
-    // Stringa per aggiungere classe di margine alla tabella
-    grid.classList.add('my_margin');
-    
+   
     // 7 - Aggiungo i livelli di difficoltà
     const difficulty = document.getElementById('difficulty');
     const level = parseInt(difficulty.value);
@@ -87,9 +85,12 @@ function createNewGame(){
             break;
         default:
             alert('Seleziona prima il livello di difficoltà');
-            break;
+            return;
     }
 
+    // Stringa per aggiungere classe di margine alla tabella
+    grid.classList.add('my_margin');
+    
     cells_per_row = Math.sqrt(cells_number);
 
     const bombs = generateBombsList(NUMBER_OF_BOMBS, cells_number);
